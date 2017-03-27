@@ -1,10 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Name")
-    email = models.EmailField(verbose_name="Email")
-    login = models.CharField(max_length=25, verbose_name="Login")
-    password = models.CharField(max_length=100, verbose_name="Password")
+    user_auth = models.OneToOneField(User, primary_key=True)
     born_date = models.DateField(verbose_name="Born date", null=True, default=None, blank=True)
     last_connection = models.DateTimeField(verbose_name="Date of last connection", null=True, default=None, blank=True)
     date_created = models.DateField(verbose_name="Date of Birthday", auto_now_add=True)
