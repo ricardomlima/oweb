@@ -1,15 +1,10 @@
-<html>
-    <head>
-    <title>
-    Hello World Title
-    </title>
-    </head>
-    <body>
-        <h1>
-        Funcionou Porra!
-        </h1>
-        <article>
-        Funcionou!
-        </article>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block title_html %}
+Titulao da porra
+{% endblock %}
+{% block h1 %}
+{{ block.super }}Oi mano
+{% endblock %}
+{% block article_content %}
+Fala mano vei
+{% endblock %}
