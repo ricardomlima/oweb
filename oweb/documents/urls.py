@@ -17,6 +17,6 @@ from django.conf.urls import url
 from documents.views import index, users
 
 urlpatterns = [
-    url(r'^$', index.index),
+    url(r'^$', index.index, name="index"),
     url(r'^create-user$', users.page, name="create_user")
 ]
