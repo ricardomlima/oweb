@@ -10,7 +10,6 @@ class UserProfile(models.Model):
 # Create your models here.
 class Document(models.Model):
     url = models.CharField(max_length=200)
-    document_owner = models.ForeignKey(UserProfile, verbose_name="User", null=True, blank=False, default=None)
 
     def __str__ (self):
         return self.url
