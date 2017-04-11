@@ -19,5 +19,6 @@ from documents.views import index, users, documents
 urlpatterns = [
     url(r'^$', index.index, name="index"),
     url(r'^create-user$', users.page, name="create_user"),
-    url(r'^create-document$',documents.DocumentCreate.as_view(),name = "create_document")
+    url(r'^create-document$',documents.DocumentCreate.as_view(),name = "create_document"),
+    url(r'^list-documents$',documents.DocumentList.as_view(),name = "list_document"),
 ]

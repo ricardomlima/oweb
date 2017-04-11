@@ -7,11 +7,23 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from documents.models import Document
 from django.views.generic import CreateView, ListView
 
+
 class DocumentCreate(CreateView):
     model = Document
     fields = '__all__'
     template_name = 'create_document.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('list_document')
+
+
+class DocumentList(ListView):
+    model = Document
+    template_name = 'list_documents.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = Document.objects.all()
+        return queryset
+
 
 class Form_document(forms.ModelForm):
     class Meta:
