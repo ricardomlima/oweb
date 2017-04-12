@@ -5,7 +5,7 @@ from django import forms
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, reverse_lazy
 from documents.models import Document
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 
 
 class DocumentCreate(CreateView):
@@ -23,6 +23,10 @@ class DocumentList(ListView):
     def get_queryset(self):
         queryset = Document.objects.all()
         return queryset
+
+class DocumentView(DetailView):
+    model = Document
+    template_name = "view_document.html"
 
 
 class Form_document(forms.ModelForm):

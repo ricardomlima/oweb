@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^create-user$', users.page, name="create_user"),
     url(r'^create-document$',documents.DocumentCreate.as_view(),name = "create_document"),
     url(r'^list-documents$',documents.DocumentList.as_view(),name = "list_document"),
+    url(r'^view-document/(?P<pk>\d+)$',documents.DocumentView.as_view(),name = "view_document"),
 ]
