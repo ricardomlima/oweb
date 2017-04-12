@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^create-document$',documents.DocumentCreate.as_view(),name = "create_document"),
     url(r'^list-documents$',documents.DocumentList.as_view(),name = "list_document"),
     url(r'^view-document/(?P<pk>\d+)$',documents.DocumentView.as_view(),name = "view_document"),
+    url(r'^update-document/(?P<pk>\d+)$',documents.DocumentUpdate.as_view(),name = "update_document"),
 ]
