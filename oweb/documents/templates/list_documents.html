@@ -12,7 +12,7 @@
         </tr>
         {% for document in document_list %}
             <tr>
-                <td><a href="">{{document.id}} {{document.url}}</a></td>
+                <td><a href="/view-document/{{document.id}}">{{document.id}} {{document.url}}</a></td>
             </tr>
         {% endfor %}
     </table>
