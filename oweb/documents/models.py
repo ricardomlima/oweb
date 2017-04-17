@@ -7,9 +7,15 @@ class UserProfile(models.Model):
     last_connection = models.DateTimeField(verbose_name="Date of last connection", null=True, default=None, blank=True)
     date_created = models.DateField(verbose_name="Date of Birthday", auto_now_add=True)
 
+    def __str__(self):
+        return self.user_auth.username
+
 # Create your models here.
 class Document(models.Model):
     url = models.CharField(max_length=200)
 
     def __str__ (self):
         return self.url
+    class Meta:
+        verbose_name = "document"
+        verbose_name_plural = "documents"
