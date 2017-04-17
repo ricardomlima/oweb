@@ -14,13 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from documents.views import index, users, documents
+from documents.views import index, users, documents, authentication, logout
 
 urlpatterns = [
     url(r'^$', index.index, name="index"),
     url(r'^create-user$', users.page, name="create_user"),
-    url(r'^create-document$',documents.DocumentCreate.as_view(),name = "create_document"),
-    url(r'^list-documents$',documents.DocumentList.as_view(),name = "list_document"),
-    url(r'^view-document/(?P<pk>\d+)$',documents.DocumentView.as_view(),name = "view_document"),
-    url(r'^update-document/(?P<pk>\d+)$',documents.DocumentUpdate.as_view(),name = "update_document"),
+    url(r'^create-document$', documents.DocumentCreate.as_view(), name = "create_document"),
+    url(r'^list-documents$', documents.DocumentList.as_view(), name = "list_document"),
+    url(r'^view-document/(?P<pk>\d+)$', documents.DocumentView.as_view(), name = "view_document"),
+    url(r'^update-document/(?P<pk>\d+)$', documents.DocumentUpdate.as_view(), name = "update_document"),
+    url(r'^authentication$', authentication.page, name = "public_connection"),
+    url(r'^logout', logout.page, name = "logout")
 ]
