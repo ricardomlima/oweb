@@ -30,7 +30,7 @@ def page(request):
             name        = form.cleaned_data['name']
             email       = form.cleaned_data['email']
             login       = form.cleaned_data['login']
-            password    = form.cleaned_data['name']
+            password    = form.cleaned_data['password']
             new_user = User.objects.create_user(username=login, email=email, password=password)
             new_user.is_active = True
             new_user.last_name = name
