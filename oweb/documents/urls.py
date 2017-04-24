@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from documents.views import index, users, documents, authentication, logout
+from django.contrib.auth.views import login
 
 urlpatterns = [
     url(r'^$', index.index, name="index"),
@@ -23,6 +24,6 @@ urlpatterns = [
     url(r'^list-documents$', documents.DocumentList.as_view(), name = "list_document"),
     url(r'^view-document/(?P<pk>\d+)$', documents.DocumentView.as_view(), name = "view_document"),
     url(r'^update-document/(?P<pk>\d+)$', documents.DocumentUpdate.as_view(), name = "update_document"),
-    url(r'^authentication$', authentication.page, name = "public_connection"),
+    url(r'^authentication$', login, {'template_name': 'authentication.html'}, name = "public_connection"),
     url(r'^logout', logout.page, name = "logout")
 ]

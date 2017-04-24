@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django import forms
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import login
 
 class Form_connection(forms.Form):
     username = forms.CharField(label="login")

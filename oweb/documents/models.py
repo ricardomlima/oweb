@@ -13,6 +13,7 @@ class UserProfile(models.Model):
 # Create your models here.
 class Document(models.Model):
     url = models.CharField(max_length=200)
+    owner = models.ForeignKey(User, null=False, default=None)
 
     def __str__ (self):
         return self.url
