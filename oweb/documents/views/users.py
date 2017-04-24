@@ -2,11 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from documents.models import UserProfile
 from django import forms
+from django.views import View
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
-class Form_user(forms.Form):
+class UserForm(forms.Form):
      name = forms.CharField(label="Name", max_length=30)
      login = forms.CharField(label="Login", max_length=30)
      email = forms.EmailField(label="Email")
@@ -14,18 +15,24 @@ class Form_user(forms.Form):
      password_bis = forms.CharField(label="Password",widget=forms.PasswordInput)
 
      def clean(self):
-         cleaned_data = super(Form_user, self).clean()
+         cleaned_data = super(UserForm, self).clean()
          password = self.cleaned_data.get('password')
          password_bis = self.cleaned_data.get('password_bis')
          if password and password_bis and password != password_bis:
              raise forms.ValidationError("Passwords are not identical.")
          return self.cleaned_data
 
+class UserRegistrationView(View):
+    form_class = UserForm
+    template_name = "create_user.html"
+    initial = {'key': 'value'}
 
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form': form})
 
-def page(request):
-    if request.POST:
-        form = Form_user(request.POST)
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
         if form.is_valid():
             name        = form.cleaned_data['name']
             email       = form.cleaned_data['email']
@@ -39,7 +46,4 @@ def page(request):
             new_userprofile.save()
             return HttpResponseRedirect(reverse('index'))
         else:
-            return render(request, 'create_user.html', {'form':form})
-    else:
-        form = Form_user()
-        return render(request, 'create_user.html', {'form':form})
+            return render(request, self.template_name, {'form':form})
