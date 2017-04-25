@@ -12,7 +12,7 @@ from documents.models import Document
 class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
-        fields = ['url']
+        fields = ['url', 'category']
 
 class DocumentCreate(CreateView):
     form_class = DocumentForm

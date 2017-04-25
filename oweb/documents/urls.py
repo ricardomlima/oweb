@@ -14,16 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from documents.views import index, users, documents, authentication, logout
-from django.contrib.auth.views import login
+from .views import documents, categories
 
 urlpatterns = [
-    url(r'^$', index.index, name="index"),
-    url(r'^create-user$', users.UserRegistrationView.as_view(), name="create_user"),
     url(r'^create-document$', documents.DocumentCreate.as_view(), name = "create_document"),
     url(r'^list-documents$', documents.DocumentList.as_view(), name = "list_document"),
     url(r'^view-document/(?P<pk>\d+)$', documents.DocumentView.as_view(), name = "view_document"),
     url(r'^update-document/(?P<pk>\d+)$', documents.DocumentUpdate.as_view(), name = "update_document"),
-    url(r'^authentication$', login, {'template_name': 'authentication.html'}, name = "public_connection"),
-    url(r'^logout', logout.page, name = "logout")
+    url(r'^create-category', categories.CategoryCreate.as_view(), name = "create_category"),
+    url(r'^list-categories$', categories.CategoryList.as_view(), name = "list_category"),
+    url(r'^view-category/(?P<pk>\d+)$', categories.CategoryView.as_view(), name = "view_category"),
+    url(r'^update-category/(?P<pk>\d+)$', categories.CategoryUpdate.as_view(), name = "update_category"),
 ]
