@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from documents.views.index import home
+from django.contrib.auth.views import login
 
 urlpatterns = [
-    url(r'^', include('documents.urls')),
+    url(r'^$', home, name="index"),
+    url(r'^documents/', include('documents.urls')),
+    url(r'^accounts/', include('accounts.urls')),
+    url(r'^authentication', login, {'template_name': 'authentication.html'}, name = "public_connection"),
     url(r'^admin/', admin.site.urls)
 ]
