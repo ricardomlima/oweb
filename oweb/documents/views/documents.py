@@ -26,7 +26,6 @@ class DocumentCreate(CreateView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        user = request.user
         return super(DocumentCreate, self).dispatch(request, *args, **kwargs)
 
 class DocumentList(ListView):
@@ -49,16 +48,3 @@ class DocumentUpdate(UpdateView):
     template_name = "update_document.html"
     fields = '__all__'
     success_url = reverse_lazy('list_document')
-
-
-def page(request):
-    if len(request.POST) > 0:
-        form = DocumentForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return HttpResponseRedirect(reverse('index'))
-        else:
-            return render(request, 'create_document.html', {'form':form})
-    else:
-        form = DocumentForm()
-        return render(request, 'create_document.html', {'form':form})
