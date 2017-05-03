@@ -6,13 +6,19 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from documents.models import Document
+from documents.models import Document, Category
 
 
 class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
         fields = ['url', 'category']
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super(DocumentForm, self).__init__(*args, **kwargs)
+        self.fields['category'].queryset = Category.objects.filter(owner=user)
+
 
 class DocumentCreate(CreateView):
     form_class = DocumentForm
@@ -27,6 +33,12 @@ class DocumentCreate(CreateView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(DocumentCreate, self).dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(DocumentCreate, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
 
 class DocumentList(ListView):
     model = Document
